@@ -7,7 +7,7 @@ import os.path as op
 class Config(object):
     """Base configuration."""
 
-    SECRET_KEY = os.environ.get('LERG_FILES_UPLOAD_SECRET', 'lerg-secret-key')
+    SECRET_KEY = os.environ.get('RATE_QUERY_API_SECRET', 'rate-secret-key')
     APP_DIR = op.abspath(op.dirname(__file__))  # This directory
     PROJECT_ROOT = op.abspath(op.join(APP_DIR, os.pardir))
     BCRYPT_LOG_ROUNDS = 13
