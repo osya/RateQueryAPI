@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f0ccf252-ef0f-4c13-a098-de5a4034d101" name="113.denovolab.com" url="http://149.56.13.113">
+        <fileTransfer host="149.56.13.113" port="22" rootFolder="/home/valeriy" accessType="SFTP" password="dfeedfe1dfecdfe0dfeadf89dfe2dfd0dfc7dfccdfc0dfc0df99dfc0df95dfecdfe7dfcbdfcb" username="valeriy">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="a0a8bebd-c0ed-4ec5-90f1-60a7f9ff803a" name="178.denovolab.com" url="http://149.56.132.178">
+        <fileTransfer host="149.56.132.178" port="22" rootFolder="/home/valeriy" accessType="SFTP" password="dfc1dfc0dfccdf89dfeadfe2df89dfe7dff0dfccdfc7df95" username="valeriy">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
