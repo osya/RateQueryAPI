@@ -10,9 +10,9 @@ class TestAPI:
     """Testing API."""
 
     def test_get_vendors_for_destination(self, testapp):
-        res = testapp.get(url_for('api.get_vendors_for_destination'))
+        res = testapp.get(url_for('api.get_vendors_for_destination', destination='US Virgin Islands Proper'))
         assert res.status_code == 200
 
     def test_get_vendor_rate(self, testapp):
-        res = testapp.get(url_for('api.get_vendor_rate'))
+        res = testapp.get(url_for('api.get_vendor_rate', vendor='US Virgin Islands Proper'))
         assert res.status_code == 200
