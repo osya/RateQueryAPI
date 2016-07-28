@@ -18,7 +18,10 @@ def exec_telnet_cmd(cmd):
         res = tn.read_until('#', timeout=timeout)
     except EOFError as e:
         return "Connection closed: %s" % e
-    return res[res.find(nl) + len(nl):].replace('\r\n', '<br/>')
+
+    res = res[res.find(nl) + len(nl):]
+    res = nl.join([e for e in res.split(nl) if not e.endswith('N/A')])
+    return res.replace('\r\n', '<br/>')
 
 
 @blueprint.route('/api/v1/GetVendorsForDestination/<string:destination>', methods=['GET', 'POST'])
