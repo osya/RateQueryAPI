@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, render_template, current_app
 import telnetlib
+import json
 
 blueprint = Blueprint('api', __name__)
 
@@ -33,7 +34,7 @@ def exec_telnet_cmd(cmd):
             if cf:
                 l.insert(1, cf[0])
         res2.append(','.join(l))
-    return '<br/>'.join(res2)
+    return json.dumps(res2)
 
 
 @blueprint.route('/api/v1/GetVendorsForDestination/<string:destination>', methods=['GET', 'POST'])
