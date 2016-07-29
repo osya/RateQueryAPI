@@ -18,6 +18,13 @@ class Config(object):
     TELNET_USER = 'root'
     TELNET_PASSWORD = 'root'
 
+    # Egress database settings
+    EGRESS_DB_HOST = '127.0.0.1'
+    EGRESS_DB_PORT = None
+    EGRESS_DB_NAME = 'exchange_class4'
+    EGRESS_DB_USER = 'postgres'
+    EGRESS_DB_PASSWORD = None
+
 
 class ProdConfig(Config):
     """Production configuration."""

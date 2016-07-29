@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Blueprint, jsonify, render_template, current_app
+from flask import Blueprint, render_template, current_app
 import telnetlib
 
 blueprint = Blueprint('api', __name__)
@@ -20,8 +20,20 @@ def exec_telnet_cmd(cmd):
         return "Connection closed: %s" % e
 
     res = res[res.find(nl) + len(nl):]
-    res = nl.join([e for e in res.split(nl) if not e.endswith('N/A')])
-    return res.replace('\r\n', '<br/>')
+    res = [e.replace('rate_finder', '').strip() for e in res.split(nl) if not e.endswith('N/A')]
+
+    res2 = []
+    cur = current_app.cn.cursor()
+    for line in res:
+        l = line.split(',')
+        if len(l) >= 2 and current_app.cn:
+            trunk_id = l[0]
+            cur.execute("""SELECT alias, resource_id FROM resource WHERE rate_table_id=%s""" % trunk_id)
+            cf = cur.fetchone()
+            if cf:
+                l.insert(1, cf[0])
+        res2.append(','.join(l))
+    return '<br/>'.join(res2)
 
 
 @blueprint.route('/api/v1/GetVendorsForDestination/<string:destination>', methods=['GET', 'POST'])
