@@ -20,23 +20,10 @@ Then run the following commands to bootstrap your environment.
 
 ::
 
-    git clone https://github.com/osya/RateQueryAPI
-    cd RateQueryAPI
+    git clone http://valeriy@stash.denovolab.com/scm/rqa/alpha
+    cd alpha
     pip install -r requirements/dev.txt
-    bower install
     python manage.py server
-
-You will see a pretty welcome screen.
-
-Once you have installed your DBMS, run the following to create your app's database tables and perform the initial migration:
-
-::
-
-    python manage.py db init
-    python manage.py db migrate
-    python manage.py db upgrade
-    python manage.py server
-
 
 
 Deployment
@@ -44,6 +31,12 @@ Deployment
 
 In your production environment, make sure the ``RATE_QUERY_API_ENV`` environment variable is set to ``"prod"``.
 
+Using
+-----
+
+You can execute the following curls and get result:
+curl http://149.56.132.178:5000/api/v1/GetVendorsForDestination/US%20Virgin%20Islands%20Proper\
+curl http://149.56.132.178:5000/api/v1/GetVendorRate/US%20Virgin%20Islands%20Proper\
 
 Shell
 -----
@@ -52,7 +45,7 @@ To open the interactive shell, run ::
 
     python manage.py shell
 
-By default, you will have access to ``app``, ``db``, and the ``User`` model.
+By default, you will have access to ``app`` model.
 
 
 Running Tests
