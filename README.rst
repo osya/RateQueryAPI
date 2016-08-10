@@ -35,8 +35,8 @@ Using
 -----
 
 You can execute the following curls and get result:
-curl http://149.56.132.178:5000/api/v1/GetVendorsForDestination/US%20Virgin%20Islands%20Proper\
-curl http://149.56.132.178:5000/api/v1/GetVendorRate/US%20Virgin%20Islands%20Proper\
+curl http://149.56.132.178:5000/api/v1/GetVendorsForDestination/US%20Virgin%20Islands%20Proper
+curl http://149.56.132.178:5000/api/v1/GetVendorRate/US%20Virgin%20Islands%20Proper
 
 Shell
 -----
