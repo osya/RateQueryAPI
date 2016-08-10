@@ -21,19 +21,25 @@ def exec_telnet_cmd(cmd):
         return "Connection closed: %s" % e
 
     res = res[res.find(nl) + len(nl):]
-    res = [e.replace('rate_finder', '').strip() for e in res.split(nl) if not e.endswith('N/A')]
+    res = [e.replace('rate_finder', '').replace('end', '').strip() for e in res.split(nl) if not e.endswith('N/A')]
 
     res2 = []
     cur = current_app.cn.cursor()
     for line in res:
         l = line.split(',')
         if len(l) >= 2 and current_app.cn:
-            trunk_id = l[0]
-            cur.execute("""SELECT alias, resource_id FROM resource WHERE rate_table_id=%s""" % trunk_id)
+            el = {'id': l[0]}
+            cur.execute("""SELECT alias, resource_id FROM resource WHERE rate_table_id=%s""" % l[0])
             cf = cur.fetchone()
             if cf:
-                l.insert(1, cf[0])
-        res2.append(','.join(l))
+                el['name'] = cf[0]
+            el['rate'] = ','.join(l[1:])
+            res2.append(el)
+        else:
+            line_strip = line.strip()
+            if line_strip:
+                res2.append(line_strip)
+
     return json.dumps(res2)
 
 
