@@ -9,6 +9,7 @@ from flask_script import Command, Manager, Option, Server, Shell
 from flask_script.commands import Clean, ShowUrls
 
 from rate_query_api.app import create_app
+from rate_query_api.commands import manager as init_values_manager
 from rate_query_api.settings import DevConfig, ProdConfig
 
 CONFIG = ProdConfig if os.environ.get('RATE_QUERY_API_ENV') == 'prod' else DevConfig
@@ -67,6 +68,7 @@ manager.add_command('shell', Shell(make_context=_make_context))
 manager.add_command('urls', ShowUrls())
 manager.add_command('clean', Clean())
 manager.add_command('lint', Lint())
+manager.add_command('init', init_values_manager)
 
 if __name__ == '__main__':
     manager.run()

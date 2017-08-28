@@ -2,8 +2,10 @@
 -r prod.txt
 
 # Testing
-pytest==2.9.0
-WebTest==2.0.20
+pytest==3.2.1
+flask-webtest==0.0.9
+pytest-mock==1.6.2
+Flask-Injector==0.10.0
 
 # Management script
 Flask-Script==2.0.5

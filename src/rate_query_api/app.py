@@ -1,35 +1,29 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
-from rate_query_api import api
-from rate_query_api.extensions import cache, log
+from flask_injector import FlaskInjector
+
+from rate_query_api.api import views
+from rate_query_api.extensions import cache, log, db
 from rate_query_api.settings import ProdConfig
-import psycopg2
+from rate_query_api.telnet import TelnetModule
 
 
-def create_app(config_object=ProdConfig):
+def create_app(config_object=ProdConfig, binds=None):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
 
+    :param binds: List of injected modules
     :param config_object: The configuration object to use.
     """
     app = Flask(__name__)
     app.config.from_object(config_object)
     register_extensions(app)
     register_blueprints(app)
-    register_errorhandlers(app)
+    register_error_handlers(app)
 
-    try:
-        args = {
-            'host': app.config['EGRESS_DB_HOST'],
-            'port': app.config['EGRESS_DB_PORT'],
-            'database': app.config['EGRESS_DB_NAME'],
-            'user': app.config['EGRESS_DB_USER'],
-            'password': app.config['EGRESS_DB_PASSWORD']
-        }
-        app.cn = psycopg2.connect(**args)
-    except psycopg2.Error as e:
-        app.logger.exception("Failed to connect to DB: {host: '%(host)s', port: %(port)d, db: '%(database)s',"
-                             " user: '%(user)s'}" % args)
+    if binds is None:
+        binds = [TelnetModule]
+    FlaskInjector(app=app, modules=binds)
 
     return app
 
@@ -38,16 +32,17 @@ def register_extensions(app):
     """Register Flask extensions."""
     cache.init_app(app)
     log.init_app(app)
+    db.init_app(app)
     return None
 
 
 def register_blueprints(app):
     """Register Flask blueprints."""
-    app.register_blueprint(api.views.blueprint)
+    app.register_blueprint(views.blueprint)
     return None
 
 
-def register_errorhandlers(app):
+def register_error_handlers(app):
     """Register error handlers."""
 
     def render_error(error):

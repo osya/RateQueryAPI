@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, current_app
 import telnetlib
-import json
+
+from flask import Blueprint, render_template, current_app, json
+
+from rate_query_api.models import Resource
 
 blueprint = Blueprint('api', __name__)
 
 
-def exec_telnet_cmd(cmd):
+def exec_telnet_cmd(cmd, telnet: telnetlib.Telnet):
     timeout = current_app.config['TELNET_TIMEOUT']
     nl = '\r\n'
-
-    tn = telnetlib.Telnet(current_app.config['TELNET_HOST'], current_app.config['TELNET_PORT'])
-    tn.write('login%s' % nl)
-    tn.write(str('%s%s' % (cmd, nl)))
+    telnet.write('login%s' % nl)
+    telnet.write(str('%s%s' % (cmd, nl)))
 
     try:
-        res = tn.read_until('#', timeout=timeout)
+        res = telnet.read_until('#', timeout=timeout)
     except EOFError as e:
         return "Connection closed: %s" % e
 
@@ -24,15 +24,13 @@ def exec_telnet_cmd(cmd):
     res = [e.replace('rate_finder', '').replace('end', '').strip() for e in res.split(nl) if not e.endswith('N/A')]
 
     res2 = []
-    cur = current_app.cn.cursor()
     for line in res:
         l = line.split(',')
-        if len(l) >= 2 and current_app.cn:
+        if len(l) >= 2:
             el = {'id': l[0]}
-            cur.execute("""SELECT alias, resource_id FROM resource WHERE rate_table_id=%s""" % l[0])
-            cf = cur.fetchone()
+            cf = Resource.query.filter_by(rate_table_id=l[0]).first()
             if cf:
-                el['name'] = cf[0]
+                el['name'] = cf.alias
             el['rate'] = ','.join(l[1:])
             res2.append(el)
         else:
@@ -44,15 +42,15 @@ def exec_telnet_cmd(cmd):
 
 
 @blueprint.route('/api/v1/GetVendorsForDestination/<string:destination>', methods=['GET', 'POST'])
-def get_vendors_for_destination(destination):
+def get_vendors_for_destination(destination, telnet: telnetlib.Telnet):
     cmd = 'rate_finder_by_name 0,1,%s' % destination
-    return exec_telnet_cmd(cmd)
+    return exec_telnet_cmd(cmd, telnet)
 
 
 @blueprint.route('/api/v1/GetVendorRate/<string:vendor>', methods=['GET', 'POST'])
-def get_vendor_rate(vendor):
+def get_vendor_rate(vendor, telnet: telnetlib.Telnet):
     cmd = 'rate_finder_by_name 0,1,%s' % vendor
-    return exec_telnet_cmd(cmd)
+    return exec_telnet_cmd(cmd, telnet)
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
@@ -65,3 +63,5 @@ def home():
 def about():
     """About page."""
     return render_template('public/about.html')
+
+# TODO: Use some Flask REST framework
