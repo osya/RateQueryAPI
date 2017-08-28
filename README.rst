@@ -2,7 +2,7 @@
 Rate Query API
 ===============================
 
-This app implements a Flask-based HTTP services for working with Telnet. Telnet commands hardcoded in the view methods
+This app implements a Flask-based HTTP API for working with Telnet. Telnet commands hardcoded in the view methods
 (in the get_vendors_for_destination() and in the get_vendor_rate())
 
 For testing:
