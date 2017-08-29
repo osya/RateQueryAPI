@@ -3,7 +3,6 @@
 
 from rate_query_api.extensions import db
 
-
 # Alias common SQLAlchemy names
 Column = db.Column
 String = db.String

@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy, string_types
 class MySQLAlchemy(SQLAlchemy):
     """
         Fixing the issue with missing `only` parameter in the Flask-SQLAlchemy's reflect() method
-        Links: 
+        Links:
             - https://stackoverflow.com/questions/23292931/flask-sqlalchemy-views-reflection
             - https://github.com/mitsuhiko/flask-sqlalchemy/issues/398
     """
@@ -32,6 +32,7 @@ class MySQLAlchemy(SQLAlchemy):
 
     def reflect(self, bind='__all__', app=None, **kwargs):
         self._execute_for_all_tables(app, bind, 'reflect', skip_tables=True, **kwargs)
+
 
 cache = Cache()
 log = Logging()

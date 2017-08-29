@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
-from flask_injector import FlaskInjector
 
+from flask_injector import FlaskInjector
 from rate_query_api.api import views
-from rate_query_api.extensions import cache, log, db
+from rate_query_api.extensions import cache, db, log
 from rate_query_api.settings import ProdConfig
 from rate_query_api.telnet import TelnetModule
 
