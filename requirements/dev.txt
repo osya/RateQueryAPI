@@ -11,7 +11,7 @@ Flask-Injector==0.10.0
 Flask-Script==2.0.5
 
 # Lint and code style
-flake8==2.5.4
+flake8==3.4.1
 flake8-blind-except==0.1.0
 flake8-debugger==1.4.0
 flake8-docstrings==0.2.5
