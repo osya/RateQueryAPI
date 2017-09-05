@@ -5,7 +5,7 @@ from flask_script import Manager
 
 from rate_query_api.models import Resource
 
-manager = Manager(usage="Commands for database data initialization")
+manager = Manager(usage='Commands for database data initialization')
 
 
 @manager.command

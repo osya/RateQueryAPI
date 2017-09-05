@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import telnetlib
+
 from flask import Blueprint, current_app, json, render_template
 
-import telnetlib
 from rate_query_api.models import Resource
 
 blueprint = Blueprint('api', __name__)
@@ -17,7 +18,7 @@ def exec_telnet_cmd(cmd, telnet: telnetlib.Telnet):
     try:
         res = telnet.read_until('#', timeout=timeout)
     except EOFError as e:
-        return "Connection closed: %s" % e
+        return 'Connection closed: %s' % e
 
     res = res[res.find(nl) + len(nl):]
     res = [e.replace('rate_finder', '').replace('end', '').strip() for e in res.split(nl) if not e.endswith('N/A')]
