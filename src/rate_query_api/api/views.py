@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import telnetlib
-
 from flask import Blueprint, current_app, json, render_template
 
+import telnetlib
 from rate_query_api.models import Resource
 
 blueprint = Blueprint('api', __name__)
@@ -25,13 +24,13 @@ def exec_telnet_cmd(cmd, telnet: telnetlib.Telnet):
 
     res2 = []
     for line in res:
-        l = line.split(',')
-        if len(l) >= 2:
-            el = {'id': l[0]}
-            cf = Resource.query.filter_by(rate_table_id=l[0]).first()
+        line_split = line.split(',')
+        if len(line_split) >= 2:
+            el = {'id': line_split[0]}
+            cf = Resource.query.filter_by(rate_table_id=line_split[0]).first()
             if cf:
                 el['name'] = cf.alias
-            el['rate'] = ','.join(l[1:])
+            el['rate'] = ','.join(line_split[1:])
             res2.append(el)
         else:
             line_strip = line.strip()

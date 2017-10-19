@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """Defines fixtures available to all tests."""
-import telnetlib
-
 import pytest
+
+import telnetlib
 from flask_webtest import TestApp
 from injector import Module, provider, singleton
-
 from rate_query_api.app import create_app
 from rate_query_api.commands import values
 from rate_query_api.extensions import db as _db
