@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import telnetlib
+
 from flask import Blueprint, current_app, json, render_template
 
-import telnetlib
 from rate_query_api.models import Resource
 
 blueprint = Blueprint('api', __name__)

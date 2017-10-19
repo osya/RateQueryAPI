@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Flask
-
 import telnetlib
+
+from flask import Flask
 from injector import Module, provider, singleton
 
 
