@@ -6,5 +6,5 @@ python:
 install: pip install -r requirements/dev.txt
 before_script: cd src
 script:
-  - python src/manage.py lint
+  - python manage.py lint
   - python manage.py test
