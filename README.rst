@@ -5,6 +5,8 @@ Rate Query API
 .. image:: https://travis-ci.org/osya/RateQueryAPI.svg?branch=master
     :target: https://travis-ci.org/osya/RateQueryAPI/
     :alt: Build status
+.. image:: https://coveralls.io/repos/github/osya/RateQueryAPI/badge.svg?branch=master
+    :target: https://coveralls.io/github/osya/RateQueryAPI?branch=master
 
 This app implements a Flask-based HTTP API for working with Telnet. Telnet commands hardcoded in the view methods
 (in the get_vendors_for_destination() and in the get_vendor_rate())

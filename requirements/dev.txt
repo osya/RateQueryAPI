@@ -6,6 +6,7 @@ pytest==3.2.1
 flask-webtest==0.0.9
 pytest-mock==1.6.2
 Flask-Injector==0.10.0
+coveralls~=1.2.0
 
 # Management script
 Flask-Script==2.0.5
