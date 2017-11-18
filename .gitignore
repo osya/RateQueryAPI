@@ -190,3 +190,4 @@ out/
 .idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
+/.env

@@ -2,11 +2,13 @@
 """Application configuration."""
 import os
 
+from decouple import config
+
 
 class Config(object):
     """Base configuration."""
 
-    SECRET_KEY = os.environ.get('RATE_QUERY_API_SECRET', 'rate-secret-key')
+    SECRET_KEY = config('SECRET_KEY')
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     BCRYPT_LOG_ROUNDS = 13
@@ -19,7 +21,7 @@ class ProdConfig(Config):
     """Production configuration."""
 
     ENV = 'prod'
-    DEBUG = False
+    DEBUG = config('DEBUG', default=False, cast=bool)
     SQLALCHEMY_DATABASE_URI = f'postgresql://postgres@127.0.0.1/exchange_class4'
     TELNET_USER = 'root'
     TELNET_PASSWORD = 'root'
@@ -31,7 +33,7 @@ class DevConfig(Config):
     """Development configuration."""
 
     ENV = 'dev'
-    DEBUG = True
+    DEBUG = config('DEBUG', default=True, cast=bool)
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
 
     DB_NAME = 'db.sqlite'
@@ -43,5 +45,5 @@ class TestConfig(Config):
     """Test configuration."""
 
     TESTING = True
-    DEBUG = True
+    DEBUG = config('DEBUG', default=True, cast=bool)
     SQLALCHEMY_DATABASE_URI = 'sqlite://'

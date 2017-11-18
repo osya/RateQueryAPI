@@ -5,6 +5,7 @@ import os
 from glob import glob
 from subprocess import call
 
+from decouple import config
 from flask_script import Command, Manager, Option, Server, Shell
 from flask_script.commands import Clean, ShowUrls
 
@@ -12,7 +13,7 @@ from rate_query_api.app import create_app
 from rate_query_api.commands import manager as init_values_manager
 from rate_query_api.settings import DevConfig, ProdConfig
 
-CONFIG = ProdConfig if os.environ.get('RATE_QUERY_API_ENV') == 'prod' else DevConfig
+CONFIG = ProdConfig if config('RATE_QUERY_API_ENV') == 'prod' else DevConfig
 HERE = os.path.abspath(os.path.dirname(__file__))
 TEST_PATH = os.path.join(HERE, 'tests')
 
