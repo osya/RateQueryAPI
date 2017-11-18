@@ -13,7 +13,7 @@ from rate_query_api.app import create_app
 from rate_query_api.commands import manager as init_values_manager
 from rate_query_api.settings import DevConfig, ProdConfig
 
-CONFIG = ProdConfig if config('RATE_QUERY_API_ENV') == 'prod' else DevConfig
+CONFIG = ProdConfig if config('RATE_QUERY_API_ENV', default='dev') == 'prod' else DevConfig
 HERE = os.path.abspath(os.path.dirname(__file__))
 TEST_PATH = os.path.join(HERE, 'tests')
 
