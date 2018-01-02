@@ -33,7 +33,7 @@ class DevConfig(Config):
     """Development configuration."""
 
     ENV = 'dev'
-    DEBUG = config('DEBUG', default=True, cast=bool)
+    DEBUG = True
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
 
     DB_NAME = 'db.sqlite'
@@ -45,5 +45,5 @@ class TestConfig(Config):
     """Test configuration."""
 
     TESTING = True
-    DEBUG = config('DEBUG', default=True, cast=bool)
+    DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
