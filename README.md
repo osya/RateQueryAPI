@@ -10,7 +10,7 @@ This app implements a Flask-based HTTP API for working with Telnet. Telnet comma
 Used technologies:
 
 - Testing:
-  - Flask
+  - Python & Flask
   - Telnet were injected via Flask-Injector and mocked via pytest-mock
   - Flask-WebTest also used
 - Travis CI
