@@ -39,14 +39,17 @@ class Lint(Command):
 
     def get_options(self):
         """Command line options."""
-        return (
-            Option('-f', '--fix-imports', action='store_true', dest='fix_imports', default=False,
-                   help='Fix imports using isort, before linting'),
-        )
+        return (Option(
+            '-f',
+            '--fix-imports',
+            action='store_true',
+            dest='fix_imports',
+            default=False,
+            help='Fix imports using isort, before linting'), )
 
     def run(self, fix_imports):
         """Run command."""
-        skip = ['requirements', 'env']
+        skip = ('requirements', 'env', 'static', '__pycache__')
         root_files = glob('*.py')
         root_directories = [name for name in next(os.walk('.'))[1] if not name.startswith('.')]
         files_and_directories = [arg for arg in root_files + root_directories if arg not in skip]
