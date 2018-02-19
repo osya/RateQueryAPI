@@ -11,7 +11,7 @@ gunicorn>=19.7.1
 Flask-Cache>=0.13.1
 
 # Database
-Flask-SQLAlchemy==2.2
-psycopg2==2.7.3
+Flask-SQLAlchemy==2.3.2
+psycopg2==2.7.4
 
 python-decouple~=3.1
