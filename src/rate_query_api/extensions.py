@@ -12,6 +12,7 @@ class MySQLAlchemy(SQLAlchemy):
             - https://stackoverflow.com/questions/23292931/flask-sqlalchemy-views-reflection
             - https://github.com/mitsuhiko/flask-sqlalchemy/issues/398
     """
+
     def _execute_for_all_tables(self, app, bind, operation, skip_tables=False, **kwargs):
         app = self.get_app(app)
 

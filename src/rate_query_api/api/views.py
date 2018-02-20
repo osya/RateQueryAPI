@@ -64,4 +64,5 @@ def about():
     """About page."""
     return render_template('public/about.html')
 
+
 # TODO: Use some Flask REST framework
